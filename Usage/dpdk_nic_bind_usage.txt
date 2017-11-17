@@ -1,0 +1,57 @@
+
+Usage:
+------
+
+     dpdk_nic_bind.py [options] DEVICE1 DEVICE2 ....
+
+where DEVICE1, DEVICE2 etc, are specified via PCI "domain:bus:slot.func" syntax
+or "bus:slot.func" syntax. For devices bound to Linux kernel drivers, they may
+also be referred to by Linux interface name e.g. eth0, eth1, em0, em1, etc.
+
+Options:
+    --help, --usage:
+        Display usage information and quit
+
+    --status:
+        Print the current status of all known network interfaces.
+        For each device, it displays the PCI domain, bus, slot and function,
+        along with a text description of the device. Depending upon whether the
+        device is being used by a kernel driver, the igb_uio driver, or no
+        driver, other relevant information will be displayed:
+        * the Linux interface name e.g. if=eth0
+        * the driver being used e.g. drv=igb_uio
+        * any suitable drivers not currently using that device
+            e.g. unused=igb_uio
+        NOTE: if this flag is passed along with a bind/unbind option, the status
+        display will always occur after the other operations have taken place.
+
+    -b driver, --bind=driver:
+        Select the driver to use or "none" to unbind the device
+
+    -u, --unbind:
+        Unbind a device (Equivalent to "-b none")
+
+    --force:
+        By default, devices which are used by Linux - as indicated by having
+        routes in the routing table - cannot be modified. Using the --force
+        flag overrides this behavior, allowing active links to be forcibly
+        unbound.
+        WARNING: This can lead to loss of network connection and should be used
+        with caution.
+
+Examples:
+---------
+
+To display current device status:
+        dpdk_nic_bind.py --status
+
+To bind eth1 from the current driver and move to use igb_uio
+        dpdk_nic_bind.py --bind=igb_uio eth1
+
+To unbind 0000:01:00.0 from using any driver
+        dpdk_nic_bind.py -u 0000:01:00.0
+
+To bind 0000:02:00.0 and 0000:02:00.1 to the ixgbe kernel driver
+        dpdk_nic_bind.py -b ixgbe 02:00.0 02:00.1
+
+    
