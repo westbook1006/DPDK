@@ -7,8 +7,9 @@ echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
 2、编译安装
 make install T=x86_64-native-linuxapp-gcc 
 modprobe uio_pci_generic
-3、查看网卡状态
+3、查看与绑定网卡
 ./tools/dpdk_nic_bind.py --status
+./tools/dpdk_nic_bind.py --bind=uio_pci_generic 
 4、输出DPDK所在目录，避免每次登陆Shell时都要手动输一遍
 export RTE_TARGET=x86_64-native-linuxapp-gcc
 export RTE_SDK=DPDK安装路径
