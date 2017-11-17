@@ -1,5 +1,8 @@
 DPDK配置环境及方法
 Ubuntu 14.04.3 LTS测试通过
+10Gbps网卡
+0000:82:00.1 '82599ES 10-Gigabit SFI/SFP+ Network Connection' if=eth5 drv=ixgbe unused=uio_pci_generic
+
 1、配置大页面
 mkdir /mnt/huge
 mount -t hugetlbfs nodev /mnt/huge
